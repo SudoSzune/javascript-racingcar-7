@@ -5,7 +5,20 @@ class App {
   async run() {
     const LINE = await Console.readLineAsync('경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)\n');
     const CARS = LINE.split(',');
+    const ENGLISHTEXT = /^[a-zA-Z]+$/;
+    const ISENGLISHTEXT = arr => arr.every(str => ENGLISHTEXT.test(str));
+    if(!ISENGLISHTEXT(CARS)){
+      throw new Error('[ERROR] 각 자동차의 이름은 영문자로만 구성되어야 합니다.');
+    }
+    for (let i = 0, len = CARS.length; i < len; i++) {
+      if(CARS[i].length > 5){
+        throw new Error('[ERROR] 각 자동차의 이름은 5자 이하여야 합니다.');
+      }
+    }
     const ATTEMPT = await Console.readLineAsync('시도할 횟수는 몇 회인가요?\n');
+    if(isNaN(ATTEMPT)){
+      throw new Error('[Error] 시도할 횟수는 숫자여야만 합니다.');
+    }
     let arr = new Array(CARS.length); //전진 횟수를 기록할 배열
     for(let i = 0; i < arr.length; i++){
       arr[i] = 0; //0으로 초기화
@@ -33,7 +46,7 @@ class App {
     for (let i = 0; i < arr.length; i++) {
       let result = `${cars[i]} : `;
       result += '-'.repeat(arr[i]); // 전진 횟수만큼 '-'를 추가
-      console.log(result); // 한 줄로 출력
+      Console.print(result); // 한 줄로 출력
     }
   }
 
@@ -46,7 +59,7 @@ class App {
       }
     }
 
-    console.log('최종 우승자 : ', winnerArr.join(', '))
+    Console.print('최종 우승자 : ', winnerArr.join(', '))
   }
 }
 
