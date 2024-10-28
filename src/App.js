@@ -15,6 +15,7 @@ class App {
         this.race(arr);
         this.print(arr, CARS);
       }
+      this.winner(arr, CARS);
     }catch(error){
       console.error(error.message);
     }
@@ -36,8 +37,17 @@ class App {
     }
   }
 
+  winner(arr,cars){
+    let winnerArr = []; // 우승 자동차를 담을 배열
+    const MAXCOUNT = Math.max(...arr); //가장 많은 전진횟수.
+    for(let i = 0; i < arr.length; i++){
+      if(arr[i] === MAXCOUNT){
+        winnerArr.push(cars[i]);
+      }
+    }
 
-
+    console.log('최종 우승자 : ', winnerArr.join(', '))
+  }
 }
 
 
